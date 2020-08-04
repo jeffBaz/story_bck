@@ -1,0 +1,10 @@
+{"fb_email":"diezerjeff@gmail.com", 
+"fb_pwd":"diazyrStoryPWD",
+"initFB":{
+    "apiKey": "AIzaSyDbtwA3oZAd6Jdrv61j087eEyZEYCGR3rU",
+    "authDomain": "story-f4bb4.firebaseapp.com",
+    "databaseURL": "https://story-f4bb4.firebaseio.com",
+    "projectId": "story-f4bb4",
+    "storageBucket": "story-f4bb4.appspot.com",
+    "messagingSenderId": "733410972143"
+}}

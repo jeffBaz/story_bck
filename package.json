@@ -1,0 +1,31 @@
+{
+  "name": "story_bck",
+  "version": "0.0.1",
+  "description": "server story-reader",
+  "main": "app.js",
+  "scripts": {
+    "test": "node --inspect app.js",
+    "start": "node ./bin/www",
+    "debug": "nodemon --inspect ./bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeffBaz/story-read-bck.git"
+  },
+  "author": "Diezer02",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeffBaz/story-read-bck/issues"
+  },
+  "homepage": "https://github.com/jeffBaz/story-read-bck#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "firebase": "^7.17.1",
+    "firebase-admin": "^9.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "node-fetch": "^2.6.0",
+    "request": "^2.88.2"
+  }
+}
