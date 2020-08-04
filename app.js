@@ -30,6 +30,9 @@ app.use(BodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 app.listen(process.env.PORT || 5000, () => {
+    if(process.env.PORT){
+        console.log('port:'+ process.env.PORT );
+    }
     if (!firebase.apps.length) {
         firebase.initializeApp({});
      }
