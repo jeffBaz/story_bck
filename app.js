@@ -14,7 +14,7 @@ const firebase = require('firebase');
 
 const auth = admin.auth();
 
-const server = http.createServer((req, res) => {
+/*const server = http.createServer((req, res) => {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
   res.end('Hello World');
@@ -23,7 +23,7 @@ const server = http.createServer((req, res) => {
 
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
-});
+});*/
 var app = Express();
 app.use(BodyParser.json());
 app.use(BodyParser.urlencoded({ extended: true }));
@@ -42,6 +42,10 @@ app.listen(process.env.PORT || 5000, () => {
       }); ;
 });
 
+app.get("/up", async (request, response) => {
+        response.status(200).json("story:0.0.1");
+  
+});
 app.get("/scenarios", async (request, response) => {
     try {
         isValidTk$ = await JWT.validateToken(request.headers.authorization, auth );
