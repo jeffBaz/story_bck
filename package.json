@@ -5,8 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "node --inspect app.js",
-    "start": "node ./bin/www",
-    "debug": "nodemon --inspect ./bin/www"
+    "start": "node  app.js"
   },
   "repository": {
     "type": "git",
