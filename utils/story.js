@@ -32,7 +32,7 @@ module.exports = {
           const response = await fetch(url)
           const buf = await response.buffer();
           const base64prefix = 'data:image/png;base64,'
-          , image =buf.toString('base64');
+          , image =decodeURIComponentbuf.toString('base64');
           resUrl =  base64prefix + image;
         } catch (error) {
           console.log(error);

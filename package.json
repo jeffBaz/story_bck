@@ -1,6 +1,6 @@
 {
   "name": "story_bck",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "server story-reader",
   "main": "app.js",
   "scripts": {
