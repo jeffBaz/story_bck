@@ -148,7 +148,7 @@ app.get("/videos", (req, res) => {
       fs.createReadStream(f).pipe(res)
     }
     } catch (error) {
-        response.status(500).send(error);
+        res.status(500).send(error);
     }
 });
 
