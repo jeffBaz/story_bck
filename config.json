@@ -7,4 +7,8 @@
     "projectId": "story-f4bb4",
     "storageBucket": "story-f4bb4.appspot.com",
     "messagingSenderId": "733410972143"
+},
+"streaming":{
+    "path":"/resources/static/assets/uploads",
+    "maxSize": 2097152000
 }}

@@ -5,26 +5,28 @@ const story = require('./utils/story.js');
 const BodyParser = require("body-parser");
 const Express = require("express");
 const cors = require("cors");
+const fs = require('fs');
 const hostname = '127.0.0.1';
 const port = 3000;
+
 const adminapp = require('firebase-admin');
 admin = adminapp.initializeApp(config.initFB);
 const firebase = require('firebase');
 //const fire_app = firebase.initializeApp(config.initFB);
-
 const auth = admin.auth();
 
 /*const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World');
- 
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/plain');
+    res.end('Hello World');
+    
 });
 
 server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+    console.log(`Server running at http://${hostname}:${port}/`);
 });*/
 var app = Express();
+global.__basedir = __dirname;
 app.use(BodyParser.json());
 app.use(BodyParser.urlencoded({ extended: true }));
 app.use(cors());
@@ -100,4 +102,54 @@ app.get("/base64/:url", async (request, response) => {
         response.status(500).send(error);
     }
 });
+
+app.post("/videos", async (request, response) => {
+    try {
+        isValidTk$ = await JWT.validateToken(request.headers.authorization, auth );
+        await story.upload(request, response );
+       
+    } catch (error) {
+        response.status(500).send(error);
+    }
+});
+
+
+app.get("/videos", (req, res) => {
+    try {
+       // story.streamVideo(request, response );
+       const filename = req.query.scene;
+    const f = __basedir + config.streaming.path + '/' + filename;
+    const stat = fs.statSync(f)
+    console.log(stat.size);
+    const fileSize = stat.size
+    const range = req.headers.range
+    if (range) {
+      const parts = range.replace(/bytes=/, "").split("-")
+      const start = parseInt(parts[0], 10)
+      const end = parts[1] 
+        ? parseInt(parts[1], 10)
+        : fileSize-1
+      const chunksize = (end-start)+1
+      const file = fs.createReadStream(f, {start, end})
+      const head = {
+        'Content-Range': `bytes ${start}-${end}/${fileSize}`,
+        'Accept-Ranges': 'bytes',
+        'Content-Length': chunksize,
+        'Content-Type': 'video/mp4',
+      }
+      res.writeHead(206, head);
+      file.pipe(res);
+    } else {
+      const head = {
+        'Content-Length': fileSize,
+        'Content-Type': 'video/mp4',
+      }
+      res.writeHead(200, head)
+      fs.createReadStream(f).pipe(res)
+    }
+    } catch (error) {
+        response.status(500).send(error);
+    }
+});
+
 
