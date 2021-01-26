@@ -5,7 +5,7 @@ const fetch = require('node-fetch');
 const uploadFile = require('../utils/upload.js');
 const fs = require('fs');
 const fire_app = firebase.initializeApp(config.initFB);
-var db = fire_app.firestore();
+const db = fire_app.firestore();
 
 module.exports = {
   async getScenarios() {
@@ -143,6 +143,8 @@ module.exports = {
       fs.createReadStream(f).pipe(res)
     }
   }
+
+  
 
   /* getScenarios() {
        return this.scenarios;

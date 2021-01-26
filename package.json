@@ -3,9 +3,13 @@
   "version": "0.0.2",
   "description": "server story-reader",
   "main": "app.js",
+  "types": "./models/model.d.ts",
   "scripts": {
-    "test": "node --inspect app.js",
-    "start": "node  app.js"
+    "tsc": "tsc",
+    "startTs": "tsc && node dist/app.js",
+    "testTs": "tsc && node --inspect dist/app.js",
+    "testJs": "node --inspect app.js",
+    "startJs": "node  app.js"
   },
   "repository": {
     "type": "git",
@@ -18,14 +22,25 @@
   },
   "homepage": "https://github.com/jeffBaz/story-read-bck#readme",
   "dependencies": {
+    "@auth0/angular-jwt": "^5.0.2",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "firebase": "^7.17.1",
     "firebase-admin": "^9.0.0",
     "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^3.1.2",
+    "lodash": "^4.17.20",
+    "multer": "^1.4.2",
     "node-fetch": "^2.6.0",
     "request": "^2.88.2",
-    "multer": "^1.4.2"
+    "stripe": "^8.131.1"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.19.0",
+    "@types/cors": "^2.8.9",
+    "@types/express": "^4.17.11",
+    "tslint": "^5.12.1",
+    "typescript": "^3.3.3"
   }
 }
