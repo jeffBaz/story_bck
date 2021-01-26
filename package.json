@@ -6,8 +6,8 @@
   "types": "./models/model.d.ts",
   "scripts": {
     "tsc": "tsc",
-    "startTs": "tsc && node dist/app.js",
-    "testTs": "tsc && node --inspect dist/app.js",
+    "start": "tsc && node dist/app.js",
+    "test": "tsc && node --inspect dist/app.js",
     "testJs": "node --inspect app.js",
     "startJs": "node  app.js"
   },
