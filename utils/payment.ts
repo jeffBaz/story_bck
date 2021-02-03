@@ -81,7 +81,7 @@ export default class Pay {
       console.error(payRef);
       throw err;
     } finally {
-      console.info("Fin update du record:" + e.id);
+      console.info("Fin update du record:" + e);
     }
   }
   public async recordPayment(payload: PaymentPayload, auth: string) {
