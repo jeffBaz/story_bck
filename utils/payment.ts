@@ -46,7 +46,8 @@ export default class Pay {
     this.updateCreditUser(payload, auth);
   }
   public async updatePayment(e: Stripe.Event, status: PaymentStatus) {
-    console.info("Début update du record:" + e.id);
+    console.info("Début update du record:" );
+    console.info(e);
     let payRefs: { history: PaymentPayload[] }, userId: string;
     let payRef: PaymentPayload;
     try {
