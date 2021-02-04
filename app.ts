@@ -176,11 +176,11 @@ app.post("/create-checkout-session", async (req, res) => {
 });
 
 app.post("/payments/webhooks", BodyParser.raw({ type: "application/json" }), (request: any, response) => {
+    let event;
     try {
         const sig = request.headers["stripe-signature"];
         console.info("webhooks debut");
         console.info(sig);
-        let event;
         event = stripe.webhooks.constructEvent(request.rawBody, sig, endpointSecret) as Stripe.Event;
         console.info(event);
         // Handle the event
@@ -212,7 +212,9 @@ app.post("/payments/webhooks", BodyParser.raw({ type: "application/json" }), (re
         }
     } catch (err) {
         response.status(400).send(`Webhook Error: ${err.message}`);
-        payment.updatePayment(event, PaymentStatus.ERROR);
+        if (event) {
+            payment.updatePayment(event, PaymentStatus.ERROR);
+        }
     }
     // Return a response to acknowledge receipt of the event
     response.json({ received: true });
