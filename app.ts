@@ -39,7 +39,7 @@ server.listen(port, hostname, () => {
 const app = Express();
 // global.__basedir = __dirname;
 app.use(cors());
-app.use(BodyParser.json({
+app.use(BodyParser.raw({
     // Because Stripe needs the raw body, we compute it but only when hitting the Stripe callback URL.
     verify: (req: any, res, buf) => {
         const url = req.originalUrl;
