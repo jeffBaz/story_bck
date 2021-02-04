@@ -113,7 +113,7 @@ export default class Pay {
       this.db.doc("credits/" + auth).get().then(_ => {
         creditPayload = _.data() as CreditModel;
         if (creditPayload) {
-          creditPayload.currentScore += Number(creditPayload.currentScore) + payload.creditsAmount;
+          creditPayload.currentScore = Number(creditPayload.currentScore) +  Number(payload.creditsAmount);
           creditPayload.history ? creditPayload.history.push(payload) : creditPayload.history = [payload];
         } else {
           creditPayload = {};
