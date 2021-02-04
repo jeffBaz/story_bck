@@ -35,9 +35,7 @@
     "multer": "^1.4.2",
     "node-fetch": "^2.6.0",
     "request": "^2.88.2",
-    "stripe": "^8.131.1",
-    "node":"^12.20.1",
-    "npm":"^6.14.10"
+    "stripe": "^8.131.1"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.0",
@@ -45,5 +43,9 @@
     "@types/express": "^4.17.11",
     "tslint": "^5.12.1",
     "typescript": "^3.3.3"
+  },
+  "engines": {
+    "node": ">=12.20.1",
+    "npm": ">=6.14.10"
   }
 }
