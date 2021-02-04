@@ -45,7 +45,7 @@ app.use(BodyParser.json({
         const url = req.originalUrl;
         console.info("url appelé:" +url);
         if (url.indexOf("/payments/webhooks") !== -1) {
-            req.rawBody = buf.toString();
+            req.rawBody = buf.toString('utf8');
             console.info("rawData:");
             console.log(req.rawBody);
         }
