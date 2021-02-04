@@ -43,7 +43,7 @@ app.use(BodyParser.json({
     // Because Stripe needs the raw body, we compute it but only when hitting the Stripe callback URL.
     verify: (req: any, res, buf) => {
         const url = req.originalUrl;
-        if (url.startsWith("/payments")) {
+        if (url.indexOf("/payments/webhooks") !== -1) {
             req.rawBody = buf.toString();
             console.info("rawData:");
             console.log(req.rawBody);
