@@ -180,9 +180,12 @@ app.post("/payments/webhooks", BodyParser.raw({ type: "application/json" }), (re
     try {
         const sig = request.headers["stripe-signature"];
         console.info("webhooks debut");
+        console.info("sig:");
         console.info(sig);
+        console.info("RawBody:");
+        console.info(request.rawBody);
         console.info("Récupération de l'event:");
-        event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret) as Stripe.Event;
+        event = stripe.webhooks.constructEvent(request.rawBody, sig, endpointSecret) as Stripe.Event;
         
         console.info(event);
         // Handle the event
