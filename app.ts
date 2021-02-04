@@ -45,7 +45,7 @@ app.use(BodyParser.json({
         const url = req.originalUrl;
         console.info("url appelé:" +url);
         if (url.indexOf("/payments/webhooks") !== -1) {
-            req.rawBody = buf.toString('utf8');
+            req.rawBody = buf.toString("utf8");
             console.info("rawData:");
             console.log(req.rawBody);
         }
@@ -181,7 +181,7 @@ app.post("/create-checkout-session", async (req, res) => {
 app.post("/payments/webhooks", BodyParser.raw({ type: "application/json" }), (request: any, response) => {
     let event;
     try {
-        const sig = request.headers["stripe-signature"];
+        const sig = request.headers["stripe-signature"].toString("utf8");
         console.info("webhooks debut");
         console.info("sig:");
         console.info(sig);
