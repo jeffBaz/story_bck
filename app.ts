@@ -188,6 +188,7 @@ app.post("/payments/webhooks", BodyParser.raw({ type: "application/json" }), (re
         console.info("RawBody:");
         console.info(request.rawBody);
         console.info("Récupération de l'event:");
+        console.info(jwt.parseHeader(sig, "v1"));
         event = stripe.webhooks.constructEvent(request.rawBody, sig, endpointSecret) as Stripe.Event;
         
         console.info(event);

@@ -26,5 +26,30 @@ export default class JWT {
         this.token = token;
         return jwt_decode(token);
     }
-
+    public parseHeader(header, scheme) {
+        if (typeof header !== 'string') {
+          return null;
+        }
+      
+        return header.split(',').reduce(
+          (accum, item) => {
+            const kv = item.split('=');
+      
+            if (kv[0] === 't') {
+              accum.timestamp = kv[1] as any;
+            }
+      
+            if (kv[0] === scheme) {
+              accum.signatures.push(kv[1]);
+            }
+      
+            return accum;
+          },
+          {
+            timestamp: -1,
+            signatures: [],
+          }
+        );
+      }
+      
 }
