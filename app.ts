@@ -176,10 +176,11 @@ app.post("/create-checkout-session", async (req, res) => {
 });
 
 app.post("/payments/webhooks", BodyParser.raw({ type: "application/json" }), (request: any, response) => {
-    const sig = request.headers["stripe-signature"];
-    console.info(sig);
-    let event;
     try {
+        const sig = request.headers["stripe-signature"];
+        console.info("webhooks debut");
+        console.info(sig);
+        let event;
         event = stripe.webhooks.constructEvent(request.rawBody, sig, endpointSecret) as Stripe.Event;
         console.info(event);
         // Handle the event
