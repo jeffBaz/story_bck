@@ -39,9 +39,10 @@ server.listen(port, hostname, () => {
 const app = Express();
 // global.__basedir = __dirname;
 app.use(cors());
+app.use("/payments/webhooks", BodyParser.raw({type: "*/*"}));
 app.use(BodyParser.json({
     // Because Stripe needs the raw body, we compute it but only when hitting the Stripe callback URL.
-    verify: (req: any, res, buf) => {
+   /* verify: (req: any, res, buf) => {
         const url = req.originalUrl;
         console.info("url appelé:" +url);
         if (url.indexOf("/payments/webhooks") !== -1) {
@@ -49,7 +50,7 @@ app.use(BodyParser.json({
             console.info("rawData:");
             console.log(req.rawBody);
         }
-    }
+    }*/
 }));
 app.use(BodyParser.urlencoded({ extended: true }));
 
@@ -186,10 +187,10 @@ app.post("/payments/webhooks", BodyParser.raw({ type: "application/json" }), (re
         console.info("sig:");
         console.info(sig);
         console.info("RawBody:");
-        console.info(request.rawBody);
+        console.info(request.body);
         console.info("Récupération de l'event:");
         console.info(jwt.parseHeader(sig, "v1"));
-        event = stripe.webhooks.constructEvent(request.rawBody, sig, endpointSecret) as Stripe.Event;
+        event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret) as Stripe.Event;
         
         console.info(event);
         // Handle the event
