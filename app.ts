@@ -21,7 +21,7 @@ const stripe = new Stripe("sk_test_5CTtiz5OLcQsixmLxKRxJsBN", { apiVersion: "202
 
 const admin = adminapp.initializeApp(config.initFB);
 const payment = new Pay();
-const endpointSecret = "whsec_9kyfiQhiWd2WdmU8BKbQ22PGdr9f42IR";
+const endpointSecret = "whsec_utcQpzRFZPWgTxsIxLPfuLrzdkYyP2cA";
 // const fire_app = firebase.initializeApp(config.initFB);
 const auth = admin.auth();
 const jwt = new JWT();
@@ -141,7 +141,7 @@ app.post("/create-payment-intent", async (req, res) => {
     // Create a PaymentIntent with the order amount and currency
     const paymentIntent = await stripe.paymentIntents.create({
         amount: payment.calculateOrderAmount(items),
-        currency: "eur",
+        currency: "eur"
     });
     res.send({
         clientSecret: paymentIntent.client_secret,
@@ -154,6 +154,7 @@ app.post("/create-checkout-session", async (req, res) => {
     const p = {
         client_reference_id: jwt.getUserDataByKeyFromJWTPayload('user_id', req.headers.authorization),
         payment_method_types: ["card"],
+        metadata: {clientId: req.body.userId },
         // tslint:disable-next-line:object-literal-sort-keys
         line_items: [
             {
@@ -210,11 +211,11 @@ app.post("/payments/webhooks", BodyParser.raw({ type: "application/json" }), (re
             // ... handle other event types
             case "payment_intent.canceled":
                 console.log("PaymentIntent was canceled!");
-                payment.updatePayment(event, PaymentStatus.CANCELED);
+                payment.errorPayment(event, PaymentStatus.CANCELED);
                 break;
             case "payment_intent.payment_failed":
                 console.log("PaymentIntent was failed!");
-                payment.updatePayment(event, PaymentStatus.FAILED);
+                payment.errorPayment(event, PaymentStatus.FAILED);
                 //implement warning system
                 break;
             default:

@@ -46,7 +46,7 @@ export default class Pay {
     this.updateCreditUser(payload, auth);
   }
   public async updatePayment(e: Stripe.Event, status: PaymentStatus) {
-    console.info("Début update du record:" );
+    console.info("Début update du record:");
     console.info(e);
     let payRefs: { history: PaymentPayload[] }, userId: string;
     let payRef: PaymentPayload;
@@ -59,7 +59,7 @@ export default class Pay {
     }
     try {
       console.info("changement du status:" + status);
-      let tmp = payRefs.history.filter(_ =>_.session && _.session.payment_intent === e.data.object["payment_intent"]).sort((a, b) => {
+      let tmp = payRefs.history.filter(_ => _.session && _.session.payment_intent === e.data.object["payment_intent"]).sort((a, b) => {
         const d1 = new Date(a.timestamp);
         const d2 = new Date(b.timestamp);
         if (a && b && a.timestamp && b.timestamp) {
@@ -103,6 +103,15 @@ export default class Pay {
        console.log(_);
    });*/
   }
+  public errorPayment (e: Stripe.Event, status: PaymentStatus) {
+    try {
+      this.db.collection(`paymentsErrors/${e.data.object["id"]}` as string).add(e.data.object);
+    } catch (e) {
+      console.error('Impossible de stocker l\'intent en erreur');
+      console.error(e);
+    }
+    // tslint:disable-next-line:no-unused-expression
+  }
   public updateCreditUser(payload: PaymentPayload, auth) {
     console.info('ajout du credit');
 
@@ -113,7 +122,7 @@ export default class Pay {
       this.db.doc("credits/" + auth).get().then(_ => {
         creditPayload = _.data() as CreditModel;
         if (creditPayload) {
-          creditPayload.currentScore = Number(creditPayload.currentScore) +  Number(payload.creditsAmount);
+          creditPayload.currentScore = Number(creditPayload.currentScore) + Number(payload.creditsAmount);
           creditPayload.history ? creditPayload.history.push(payload) : creditPayload.history = [payload];
         } else {
           creditPayload = {};
