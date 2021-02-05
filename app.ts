@@ -21,7 +21,7 @@ const stripe = new Stripe("sk_test_5CTtiz5OLcQsixmLxKRxJsBN", { apiVersion: "202
 
 const admin = adminapp.initializeApp(config.initFB);
 const payment = new Pay();
-const endpointSecret = "whsec_utcQpzRFZPWgTxsIxLPfuLrzdkYyP2cA";
+const endpointSecret = "whsec_9kyfiQhiWd2WdmU8BKbQ22PGdr9f42IR";
 // const fire_app = firebase.initializeApp(config.initFB);
 const auth = admin.auth();
 const jwt = new JWT();
